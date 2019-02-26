@@ -1,0 +1,280 @@
+\documentclass[11pt]{article}
+
+\usepackage{setspace}
+\usepackage{geometry}
+
+\usepackage{indentfirst}
+\usepackage{color}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{amsmath}
+
+\geometry{left=2.3cm, right=2.3cm, top = 2.0cm, bottom=2.5cm}
+
+
+\author{Cindy Cai(18120340), Jane Cao(18120341) \\ Will Miao(18125242), Zakaria Hasan(18129020), Zper Zhang(18120448)}   %member name
+
+\title{\textbf{Machine Learning Report: Supervised Learning}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Abstract}
+{\color{red} Give a brief introduction about this report. (Please delete all of the red text in your final submitted version!)}
+{\color{green} I will write this section at last.}
+
+\section{Preliminaries}
+
+Supervised learning is the machine learning task of learning a function that maps an input to an output based on sample input-output pairs.It infers a function from labeled training data consisting of a set of training samples, which can be used for mapping new samples. An optimal scenario will allow for the algorithm to correctly determine the class labels for unseen instances.
+
+In Table 1,We introduce some notations in this paper. Obviously, a supervised learning algorithm seeks a function:$g: \mathcal{X} \to \mathcal{Y}$ for mapping new samples.
+
+\begin{table}[h]
+	\caption{Notations used in the paper}\label{Notations}
+	\centering
+	\small
+	\begin{tabular}{lp{0.7\columnwidth}}
+		\hline
+		Symbols & Description \\
+		\hline
+		\hline
+	    {$\mathcal{X}$} & $d$-dimensional feature space $R^{d}$\\
+	    {$\mathcal{Y}$} & label space with $q$ labels $\left\{1,2,...,q\right\}$\\
+		{$\mathcal{D}$} & training set with $n$ samples $\left\{(x_{i}, y_{i})|1 \leq i \leq n\right\}$\\
+		{$x_{i}$}       & $x_{i} \in \mathcal{X}$ is a $d$-dimensional feature vector$(x_{i1},x_{i2},...,x_{id})^{T}$\\
+		{$y_{i}$}       & $y_{i} \in \mathcal{Y}$ is the label of $x_{i}$\\
+		\hline	
+	\end{tabular}
+\end{table}
+
+
+
+\section{Algorithm Description}
+In this section, we will give the detailed description of supervised learning algorithms (including Decision tree, Naive Bayes, Logistic regression, Neural network, Support vector machines).
+
+\subsection{Decision Tree}
+
+\subsection{Naive Bayes}
+
+Naive bayes is a probabilistic classifier based on Bayes' theorem. It assumes all features are independent.
+
+For binary classification problem, we need to compare the probability of two different classes.
+
+\begin{gather}
+P(y = 1\mid X) = \frac{P(X\mid y = 1)P(y = 1)}{P(X)} \\
+P(y = 0\mid X) = \frac{P(X\mid y = 0)P(y = 0)}{P(X)}
+\end{gather}
+
+If the probability of given X, y equals 1 is larger than given X, y equals 0, then we will say the sample we gave to our classifier is more likely to be class one.
+
+\begin{gather}
+P(y = 1) = \frac{\# \ of\ samples\ belong\ to\ class\ 1}{\# \ of\ all\ training\ samples} \\
+P(y = 0) = \frac{\# \ of\ samples\ belong\ to\ class\ 0}{\# \ of\ all\ training\ samples}
+\end{gather}
+
+We can use the formula above to compute $P(y = 1)$ and $P(y = 0)$.
+Since we assume that all features are independent, so we can use the formula below to compute the probability $P(X\mid y = 1)$ and $P(X\mid y = 0)$.
+
+\begin{gather}
+P(X\mid y = 1) = \prod^m_{i=1}P(X_i\mid y = 1)
+\end{gather}
+
+m denotes the number of features.
+For discrete features, we can use frequency to compute $P(X_i\mid y = 1)$ of each features, this method is also called Bernoulli Naive Bayes. But for continuous features, we cannot use frequency, because the probability of $P(X_i\mid y = 1)$ would be very small or even be zero. We need some other techniques to deal with this problem. We assume that all features are normal distributed, so we can choose one feature and use all samples of this feature to compute the parameters of the normal distribution of this feature, such as $\mu $ and $\sigma ^2$. This method is called Gaussian Naive Bayes.
+
+Actually, we can use MLE(Maximum likelihood estimation) to estimate the parameters of the normal distribution, and then we can get the formula of the following:
+
+\begin{flalign}
+\mu_j &= \frac{1}{k} \sum^k_{i=1}X^{(i)}_j \\
+\sigma^2_j &= \frac{1}{k} \sum^k_{i=1}(X^{(i)}_j-\mu_j)^2
+\end{flalign}
+
+In the formula above, j denotes the $jth$ feature of samples, k denotes the number of samples which belong to class 1 or class 0.
+
+After computing the value of $\mu $ and $\sigma^2 $, we can use these parameters to compute the $P(X_j\mid y = 1)$, the probability of the $jth$ feature given y equals one.
+
+\begin{gather}
+P(X_j\mid y = 1) = \frac{1}{\sqrt{2\pi }\sigma_j }\exp^{(-\frac{(x_j-\mu_j )^2}{2\sigma_j^2})}
+\end{gather}
+
+After computing all probability of each features given the label, we can times them up and times the probability of the label. So we can get two different probabilities of two different labels, and compare them to determine which label the sample should be.
+
+
+\subsection{Logistic Regression}
+
+\subsection{Neural Network}
+
+\subsection{Support Vector Machines}
+
+\section{Experiments setting}
+
+\subsection{Dataset}
+
+In the experiments, two UCI datasets were used. The detailed information about the datasets are listed in Table 2.
+
+\begin{table}[h]
+	\caption{Detailed information about datasets used in this paper}\label{datasets}
+	\centering
+	\small
+	\begin{tabular}{c|ccc}
+		\hline
+		\text{Dataset} & \text{Number of instances} & \text{Number of attributes} & \text{Number of classes} \\
+		\hline
+		\hline
+	    \text{Iris} & 150 & 4 & 3\\
+	    \text{Statlog(Heart)} & 270 & 13 & 2\\	
+		\hline	
+	\end{tabular}
+\end{table}
+
+\subsection{Data preprocessing}
+{\color{red} Give the detailed information about data processing.}
+
+
+\subsection{Evaluation metrics}
+
+Different evaluation measures are available when computing evaluation scores for classiﬁcation.
+
+\begin{table}[h]
+	\caption{Confusion Matrix in Binary Scenario}\label{confusion matrix}
+	\centering
+	\small
+	\begin{tabular}{c|c|c}
+		\hline
+		  & \text{True P} & \text{True N} \\
+		\hline
+	    \text{Predicted P} & TP & FP\\
+	    \text{Predicted N} & FN & TN\\	
+		\hline	
+	\end{tabular}
+\end{table}
+
+
+In binary scenario, given a Table 3, one can compute:
+\begin{gather}
+precision = \frac{TP}{TP+FP}
+\end{gather}
+
+
+\begin{gather}
+recall = \frac{TP}{TP+FN}
+\end{gather}
+
+\begin{gather}
+f1_score(\beta) = \frac{2*TP}{2*TP+FP+FN}
+\end{gather}
+
+
+One can compute the accuarcy for class A:
+
+
+\begin{gather}
+accuracy = \frac{TP}{N_{A}}
+\end{gather}
+
+
+In which $TP$ = true positive for class A, $N_{A}$ = the total number of instances of class A in test.
+
+When multiple class labels are to be retrieved, averaging the evaluation measures can give a view on the general results. There are two names to refer to averaged results: micro-averaged and macro-averaged results. $L = \left\{\lambda_{j}|j = 1,2,...,q\right\}$ is the set of all labels. Consider a binary evaluation measure $B(TP,TN,FP,FN)$ that is calculated based on the number of true positives, true negatives, false positives and false negatives. Let $TP_{\lambda}$, $FP_{\lambda}$, $TN_{\lambda}$ and $FN_{\lambda}$ be the number of true positives, false positives, true negatives and false negatives after binary evaluation for a label $\Lambda$.
+
+A macro-averaged results can be computed as follows:
+
+
+\begin{gather}
+B_{macro} = \frac{1}{q}\sum_{\Lambda=1}^{q}B\left(TP_{\lambda},FP_{\lambda},FP_{\lambda},TN_{\lambda}\right)
+\end{gather}
+
+
+A micro-averaged results can be computed as follows:
+\begin{gather}
+B_{micro} = B\left(\sum_{\Lambda=1}^{q}TP_{\lambda},\sum_{\Lambda=1}^{q}FP_{\lambda},\sum_{\Lambda=1}^{q}FP_{\lambda},\sum_{\Lambda=1}^{q}TN_{\lambda}\right)
+\end{gather}
+
+\subsection{Parameter Setting}
+{\color{red} Give the detailed information about how to set optimal parameters for each algorithm.}
+
+
+
+\section{Experimental Results}
+
+
+\subsection{Effect of parameters}
+{\color{red} Investigate the effect of parameters (i.e., the number of nearest neighbors in KNN) for classification performance and give a deep discussion.}
+
+
+\subsection{Classification performance}
+
+{\color{red} List the classification performance (different evaluation metrics) in difference algorithms and analyze the experimental results.}
+
+\begin{table}[h]
+	\caption{Results on Statlog(Heart)}\label{result of Statlog(Heart)}
+	\centering
+	\small
+	\begin{tabular}{c|c|c|c|c}
+		\hline
+		\text{method} & \text{precision} & \text{recall} & \text{f1\_score} & \text{accuracy} \\
+		\hline
+		\hline
+		\text{Decision Tree}& 0.0 & 0.0 & 0.0 & 0.0\\
+		\text{Naive Bayes}& 0.0 & 0.0 & 0.0 & 0.0\\
+		\text{Logistic Regression}& 0.0 & 0.0 & 0.0 & 0.0\\
+		\text{Neural Network}& 0.0 & 0.0 & 0.0 & 0.0\\
+		\text{SVM}& 0.0 & 0.0 & 0.0 & 0.0\\
+		\hline	
+	\end{tabular}
+\end{table}
+
+analyze....
+
+\begin{table}[h]
+	\caption{Macro-Results on Iris}\label{macro-result of iris}
+	\centering
+	\small
+	\begin{tabular}{c|c|c|c|c}
+		\hline
+		\text{method}  & \text{macro\_precision} & \text{macro\_recall} & \text{macro\_f1\_score} & \text{macro\_accuracy}\\
+		\hline
+		\hline
+	    \text{Decision Tree}& 0.0 & 0.0 & 0.0 & 0.0\\
+		\text{Naive Bayes}& 0.0 & 0.0 & 0.0 & 0.0\\
+		\text{Logistic Regression}& 0.0 & 0.0 & 0.0 & 0.0\\
+		\text{Neural Network}& 0.0 & 0.0 & 0.0 & 0.0\\
+		\text{SVM}& 0.0 & 0.0 & 0.0 & 0.0\\
+		\hline	
+	\end{tabular}
+\end{table}
+
+analyze....
+
+\begin{table}[h]
+	\caption{Micro-Results on Iris}\label{micro-result of iris}
+	\centering
+	\small
+	\begin{tabular}{c|c|c|c|c}
+		\hline
+		\text{method}  & \text{micro\_precision} & \text{micro\_recall} & \text{micro\_f1\_score} & \text{micro\_accuracy}\\
+		\hline
+		\hline
+	    \text{Decision Tree}& 0.0 & 0.0 & 0.0 & 0.0\\
+		\text{Naive Bayes}& 0.0 & 0.0 & 0.0 & 0.0\\
+		\text{Logistic Regression}& 0.0 & 0.0 & 0.0 & 0.0\\
+		\text{Neural Network}& 0.0 & 0.0 & 0.0 & 0.0\\
+		\text{SVM}& 0.0 & 0.0 & 0.0 & 0.0\\
+		\hline	
+	\end{tabular}
+\end{table}
+
+analyze....
+
+\section{Problems and Solutions}
+
+{\color{red} List the problems you've ever met and the corresponding solutions}
+
+
+\section{Conclusion}
+{\color{red} Give a brief conclusion about this report. }
+
+\end{document}
+
